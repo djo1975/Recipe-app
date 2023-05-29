@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [:show, :destroy]
+  before_action :set_recipe, only: %i[show destroy]
 
   def index
     @recipes = current_user.recipes
@@ -7,7 +7,7 @@ class RecipesController < ApplicationController
 
   def show
     unless @recipe.public || @recipe.author == current_user
-      redirect_to recipes_path, alert: "You do not have access to that recipe."
+      redirect_to recipes_path, alert: 'You do not have access to that recipe.'
     end
 
     @recipe_foods = @recipe.recipe_foods
@@ -21,17 +21,17 @@ class RecipesController < ApplicationController
     @recipe = current_user.recipes.new(recipe_params)
 
     if @recipe.save
-      redirect_to recipes_path, notice: "Recipe created successfully."
+      redirect_to recipes_path, notice: 'Recipe created successfully.'
     else
-      render :new, alert: "Failed to create recipe."
+      render :new, alert: 'Failed to create recipe.'
     end
   end
 
   def destroy
     if @recipe.destroy
-      redirect_to recipes_path, notice: "Recipe deleted successfully."
+      redirect_to recipes_path, notice: 'Recipe deleted successfully.'
     else
-      redirect_to recipes_path, alert: "Failed to delete recipe."
+      redirect_to recipes_path, alert: 'Failed to delete recipe.'
     end
   end
 
