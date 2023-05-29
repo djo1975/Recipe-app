@@ -1,0 +1,11 @@
+<%= content_for :title, "Users" %>
+
+<main class='main'>
+  <h1>Users</h1>
+
+  <ul>
+    <% @users.each do |user| %>
+      <li><%= user.name %></li>
+    <% end %>
+  </ul>
+</main>

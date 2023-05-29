@@ -1,0 +1,25 @@
+<%= content_for :title, "Recipes" %>
+
+<main class='main'>
+  <div class='header'>
+    <h1>Recipes</h1>
+    <div class='actions'>
+      link to new recipe
+  </div>
+
+  <ul class='recipes'>
+    <% @recipes.each do |recipe| %>
+      <li class='recipe'>
+        <div class='left'>
+          <h2><%= link_to recipe.name, recipe %></h2>
+          <div class='actions'>
+            <%= link_to 'Delete', recipe, method: :delete, data: { confirm: 'Are you sure?' } %>
+          </div>
+        </div>
+
+        <div class='right'>
+          <p class='description'><%= recipe.description %></p>
+        </div>
+      </li>
+    <% end %>
+</main

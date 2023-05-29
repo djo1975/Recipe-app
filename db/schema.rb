@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 20_230_529_125_040) do
+ActiveRecord::Schema[7.0].define(version: 20_230_529_133_842) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -22,4 +22,35 @@ ActiveRecord::Schema[7.0].define(version: 20_230_529_125_040) do
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
   end
+
+  create_table 'recipe_foods', force: :cascade do |t|
+    t.bigint 'recipe_id', null: false
+    t.bigint 'food_id', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['food_id'], name: 'index_recipe_foods_on_food_id'
+    t.index ['recipe_id'], name: 'index_recipe_foods_on_recipe_id'
+  end
+
+  create_table 'recipes', force: :cascade do |t|
+    t.bigint 'author_id', null: false
+    t.string 'name'
+    t.string 'prep_time'
+    t.string 'cook_time'
+    t.string 'description'
+    t.boolean 'public', default: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['author_id'], name: 'index_recipes_on_author_id'
+  end
+
+  create_table 'users', force: :cascade do |t|
+    t.string 'name'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+  end
+
+  add_foreign_key 'recipe_foods', 'foods'
+  add_foreign_key 'recipe_foods', 'recipes'
+  add_foreign_key 'recipes', 'users', column: 'author_id'
 end
