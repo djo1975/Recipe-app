@@ -23,7 +23,7 @@ class RecipesController < ApplicationController
     if @recipe.save
       redirect_to recipes_path, notice: "Recipe created successfully."
     else
-      render :new
+      render :new, alert: "Failed to create recipe."
     end
   end
 

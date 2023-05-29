@@ -1,0 +1,51 @@
+<%= content_for :title, @recipe.name %>
+
+<main class='main'>
+  <div class='header'>
+    <h1><%= @recipe.name %></h1>
+    <div class='actions'>
+      <% if @recipe.public? %>
+        <%= link_to 'Public', toggle_public_recipe_path(@recipe), method: :patch %>
+      <% else %>
+        <%= link_to 'Private', toggle_public_recipe_path(@recipe), method: :patch %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class='content'>
+    <p class='prep-time'>Preparation time: <%= @recipe.prep_time %> hours</p>
+    <p class='cook-time'>Cooking time: <%= @recipe.cook_time %> hours</p>
+    <p class='description'><%= @recipe.description %></p>
+  </div>
+
+  <div class='actions'>
+    <%= link_to 'Generate Shopping List', shopping_list_recipe_path(@recipe) %>
+    <%= link_to 'Add ingredients', new_recipe_ingredient_path(@recipe) %>
+  </div>
+
+  <% if recipe_foods.length > 0 %>
+    <table class='foods'>
+      <thead>
+        <tr>
+          <th>Food</th>
+          <th>Quantity</th>
+          <th>Value</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% recipe_foods.each do |recipe_food| %>
+          <tr>
+            <td><%= recipe_food.food.name %></td>
+            <td><%= recipe_food.quantity %></td>
+            <td><%= recipe_food.unit %></td>
+            <td>
+              <%= link_to 'Modify', edit_recipe_ingredient_path(@recipe, recipe_food) %>
+              <%= link_to 'Delete', recipe_ingredient_path(@recipe, recipe_food), method: :delete, data: { confirm: 'Are you sure?' } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</main>
