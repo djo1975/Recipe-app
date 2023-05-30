@@ -1,0 +1,38 @@
+.toggle-link button {
+  all: unset;
+  cursor: pointer;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.toggle-box {
+  --height: 1rem;
+
+  display: inline-block;
+  width: 2rem;
+  border: solid 1px #ccc;
+  border-radius: 5rem;
+}
+
+.toggle-box .toggle {
+  width: var(--height);
+  height: var(--height);
+  border-radius: 50%;
+  scale: 0.8;
+  background-color: #fff;
+  box-shadow: 0 0 0 1px #ccc;
+}
+
+.toggle-box.private {
+  background-color: #a1a1a1;
+}
+
+.toggle-box.public {
+  background-color: #56c86d;
+}
+
+.toggle-box.public .toggle {
+  margin-left: auto;
+}

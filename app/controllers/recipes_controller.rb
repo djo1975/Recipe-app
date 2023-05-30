@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: %i[show destroy]
+  before_action :set_recipe, only: %i[show destroy update]
 
   def index
     @recipes = current_user.recipes.includes(:author).order(created_at: :desc)
@@ -31,6 +31,15 @@ class RecipesController < ApplicationController
       redirect_to recipes_path, notice: 'Recipe created successfully.'
     else
       render :new, alert: 'Failed to create recipe.'
+    end
+  end
+
+  def update
+    if @recipe.update(recipe_params)
+      notice = @recipe.public ? 'Recipe is now public.' : 'Recipe is now private.'
+      redirect_to @recipe, notice: notice
+    else
+      redirect_to @recipe, alert: 'Failed to update recipe.'
     end
   end
 

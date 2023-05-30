@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   root 'recipes#index'
 
   resources :users, only: [:index]
-  resources :recipes, only: %i[index show new create destroy]
+  resources :recipes, only: %i[index show new create destroy update]
   resources :foods
   resources :recipe_foods
 
