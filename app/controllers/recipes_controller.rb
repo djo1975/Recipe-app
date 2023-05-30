@@ -16,7 +16,7 @@ class RecipesController < ApplicationController
 
     @recipe_foods = RecipeFood.where(recipe: @recipe).includes(:food, :recipe)
     @total_food_items = @recipe_foods.count
-    
+
     @total_price = @recipe_foods.sum { |recipe_food| recipe_food.food.price * recipe_food.food.quantity }
   end
 
