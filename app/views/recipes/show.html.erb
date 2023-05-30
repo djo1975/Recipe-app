@@ -1,0 +1,51 @@
+<%= content_for :title, @recipe.name %>
+
+<main class='main'>
+  <div class='header'>
+    <h1><%= @recipe.name %></h1>
+    <div class='actions'>
+      <% if @recipe.public? %>
+        <%= link_to 'Public' %>
+      <% else %>
+        <%= link_to 'Private' %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class='content'>
+    <p class='prep-time'>Preparation time: <%= @recipe.prep_time %> hours</p>
+    <p class='cook-time'>Cooking time: <%= @recipe.cook_time %> hours</p>
+    <p class='description'><%= @recipe.description %></p>
+  </div>
+
+  <div class='actions'>
+    <%= link_to 'Generate shopping list' %>
+    <%= link_to 'Add ingredient' %>
+  </div>
+
+  <% if @recipe_foods.length > 0 %>
+    <table class='foods'>
+      <thead>
+        <tr>
+          <th>Food</th>
+          <th>Quantity</th>
+          <th>Value</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @recipe_foods.each do |recipe_food| %>
+          <tr>
+            <td><%= recipe_food.food.name %></td>
+            <td><%= recipe_food.food.quantity %> <%= recipe_food.food.measurement_unit %></td>
+            <td>$<%= recipe_food.food.quantity * recipe_food.food.price %></td>
+            <td>
+              <%= link_to 'Edit' %>
+              <%= link_to 'Delete' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</main>
