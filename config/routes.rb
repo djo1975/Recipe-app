@@ -10,5 +10,4 @@ Rails.application.routes.draw do
   resources :recipe_foods
 
   # Add any additional routes you need below this line
-
 end
