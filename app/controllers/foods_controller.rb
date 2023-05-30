@@ -1,6 +1,6 @@
 class FoodsController < ApplicationController
   def index
-    @foods = current_user.foods
+    @foods = current_user.foods.includes(:author)
   end
 
   def new

@@ -1,0 +1,39 @@
+<%= content_for :title, 'New recipe' %>
+
+<main class='main'>
+  <div class='header'>
+    <h1>Add a new recipe</h1>
+  </div>
+
+  <%= form_for @recipe do |f| %>
+    <div class='content'>
+      <div class='field'>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+      </div>
+
+      <div class='field'>
+        <%= f.label :description %>
+        <%= f.text_area :description %>
+      </div>
+
+      <div class='field'>
+        <%= f.label :prep_time %>
+        <%= f.text_field :prep_time %>
+      </div>
+
+      <div class='field'>
+        <%= f.label :cook_time %>
+        <%= f.text_field :cook_time %>
+      </div>
+
+      <div class='field'>
+        <%= f.label :public %>
+        <%= f.check_box :public %>
+      </div>
+    </div>
+
+    <div class='actions'>
+      <%= f.submit 'Add recipe', data: { disable_with: 'Adding recipe...' } %>
+    </div>
+  <% end %>
