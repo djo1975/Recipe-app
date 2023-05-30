@@ -4,7 +4,7 @@
   <div class='header'>
     <h1>Recipes by <%= current_user.name %></h1>
     <div class='actions'>
-      link to new recipe
+      <%= link_to 'New recipe', new_recipe_path %>
   </div>
 
   <ul class='recipes'>
