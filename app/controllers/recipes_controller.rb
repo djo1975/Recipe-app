@@ -12,12 +12,15 @@ class RecipesController < ApplicationController
   def show
     unless @recipe.public || @recipe.author == current_user
       redirect_to recipes_path, alert: 'You do not have access to that recipe.'
-      return
     end
 
-    @recipe_foods = @recipe.recipe_foods
+    @recipe_foods = RecipeFood.where(recipe: @recipe)
     @total_food_items = @recipe_foods.count
-    @total_price = @recipe_foods.sum(:price)
+    
+    @total_price = 0
+    @recipe_foods.each do |recipe_food|
+      @total_price += recipe_food.food.price
+    end
   end
 
   def new
