@@ -2,11 +2,11 @@ class RecipesController < ApplicationController
   before_action :set_recipe, only: %i[show destroy]
 
   def index
-    @recipes = current_user.recipes
+    @recipes = current_user.recipes.includes(:author).order(created_at: :desc)
   end
 
   def public_recipes
-    @recipes = Recipe.where(public: true).order(created_at: :desc)
+    @recipes = Recipe.where(public: true).includes(:author, :foods).order(created_at: :desc)
   end
 
   def show
@@ -14,13 +14,10 @@ class RecipesController < ApplicationController
       redirect_to recipes_path, alert: 'You do not have access to that recipe.'
     end
 
-    @recipe_foods = RecipeFood.where(recipe: @recipe)
+    @recipe_foods = RecipeFood.where(recipe: @recipe).includes(:food, :recipe)
     @total_food_items = @recipe_foods.count
     
-    @total_price = 0
-    @recipe_foods.each do |recipe_food|
-      @total_price += recipe_food.food.price
-    end
+    @total_price = @recipe_foods.sum { |recipe_food| recipe_food.food.price * recipe_food.food.quantity }
   end
 
   def new
@@ -48,7 +45,7 @@ class RecipesController < ApplicationController
   private
 
   def set_recipe
-    @recipe = Recipe.find(params[:id])
+    @recipe = Recipe.includes(:author).find(params[:id])
   end
 
   def recipe_params
