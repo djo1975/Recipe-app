@@ -5,12 +5,19 @@ class RecipesController < ApplicationController
     @recipes = current_user.recipes
   end
 
+  def public_recipes
+    @recipes = Recipe.where(public: true).order(created_at: :desc)
+  end
+
   def show
     unless @recipe.public || @recipe.author == current_user
       redirect_to recipes_path, alert: 'You do not have access to that recipe.'
+      return
     end
 
     @recipe_foods = @recipe.recipe_foods
+    @total_food_items = @recipe_foods.count
+    @total_price = @recipe_foods.sum(:price)
   end
 
   def new
