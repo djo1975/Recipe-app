@@ -3,6 +3,6 @@ class ApplicationController < ActionController::Base
 
   def current_user
     # Dummy korisnik ili privremeni objekt
-    User.new(name: "Test User")
+    User.new(name: 'Test User')
   end
 end
