@@ -10,13 +10,7 @@
   </head>
 
   <body>
-    <nav class="navigation">
-      <ul>
-        <li><%= link_to 'Foods', foods_path %></li>
-        <li><%= link_to 'Recipes', recipes_path %></li>
-        <li><%= link_to 'Public Recipes', public_recipes_recipes_path %></li>
-      </ul>
-    </nav>
+    <%= render "shared/navbar" %>
 
     <div>
       <p class="notice"><%= notice %></p>
