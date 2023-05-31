@@ -12,4 +12,7 @@
  *
  *= require_tree .
  *= require_self
+ *= require food_list
+ *= require new_food
+ *= require navbar
  */
