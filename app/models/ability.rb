@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Ability
   include CanCan::Ability
 
@@ -10,8 +8,10 @@ class Ability
 
     can :read, :all
     return unless user.present?
+
     can :manage, :all, author_id: user.id
     return unless user.role == 'admin'
+
     can :manage, :all
     #
     # The first argument to `can` is the action you are giving the user
