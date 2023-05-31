@@ -37,7 +37,7 @@ class RecipesController < ApplicationController
   def update
     if @recipe.update(recipe_params)
       notice = @recipe.public ? 'Recipe is now public.' : 'Recipe is now private.'
-      redirect_to @recipe, notice: notice
+      redirect_to @recipe, notice:
     else
       redirect_to @recipe, alert: 'Failed to update recipe.'
     end
@@ -63,8 +63,8 @@ class RecipesController < ApplicationController
 
   def find_missing_foods(recipe)
     user = recipe.author
-    recipe_foods = RecipeFood.where(recipe: recipe).includes(food: :author)
-    user_foods = user.foods.includes(:author)
+    RecipeFood.where(recipe:).includes(food: :author)
+    user.foods.includes(:author)
   end
 
   def calculate_total_price(recipe_foods)

@@ -4,7 +4,7 @@ RSpec.describe 'Foods', type: :request do
   describe 'GET' do
     before :all do
       @user = User.create(name: 'Test User')
-      current_user = @user
+      @user
     end
 
     describe '/index' do
@@ -41,6 +41,6 @@ RSpec.describe 'Foods', type: :request do
       it 'renders the placeholder text' do
         expect(response.body).to include('New Food')
       end
-    end   
+    end
   end
 end

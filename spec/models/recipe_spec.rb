@@ -4,13 +4,14 @@ RSpec.describe Recipe, type: :model do
   describe 'creation' do
     before :all do
       @user = User.create(name: 'John Doe')
-      @recipe = Recipe.create(name: 'Chicken Parmesan', prep_time: '10 minutes', cook_time: '30 minutes', description: 'This is a description', author: @user)
+      @recipe = Recipe.create(name: 'Chicken Parmesan', prep_time: '10 minutes', cook_time: '30 minutes',
+                              description: 'This is a description', author: @user)
     end
 
     it 'can be created' do
       expect(@recipe).to be_valid
     end
-    
+
     it 'can be created with a public value that is a boolean' do
       @recipe.public = true
       expect(@recipe).to be_valid
@@ -85,7 +86,7 @@ RSpec.describe Recipe, type: :model do
       @recipe.author = User.new(name: 'Jane Doe')
       expect(@recipe).to_not be_valid
     end
-    
+
     it 'cannot be created with a public value that is not a boolean' do
       @recipe.public = 'true'
       expect(@recipe).to_not be_valid

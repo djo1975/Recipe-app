@@ -4,9 +4,9 @@ RSpec.describe 'Recipes', type: :request do
   describe 'GET' do
     before :all do
       @user = User.create(name: 'Test User')
-      current_user = @user
+      @user
     end
-    
+
     describe '/index' do
       before :each do
         get recipes_path
@@ -45,7 +45,8 @@ RSpec.describe 'Recipes', type: :request do
 
     describe '/show' do
       before :each do
-        @recipe = Recipe.create(name: 'Test Recipe', prep_time: '10 minutes', cook_time: '20 minutes', description: 'Test description', public: true, author: @user)
+        @recipe = Recipe.create(name: 'Test Recipe', prep_time: '10 minutes', cook_time: '20 minutes',
+                                description: 'Test description', public: true, author: @user)
         get recipe_path(@recipe)
       end
 

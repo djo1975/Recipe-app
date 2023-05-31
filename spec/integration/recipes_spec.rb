@@ -3,11 +3,13 @@ require 'rails_helper'
 RSpec.describe 'Recipes', type: :system, js: true do
   before :example do
     @messi = User.create(name: 'Messi')
-    current_user = @messi
 
-    @recipe = Recipe.create(name: 'Burger', prep_time: '10 minutes', cook_time: '15 minutes', description: 'Delicious burger', public: true, author: @messi)
-    @recipe2 = Recipe.create(name: 'Pizza', prep_time: '10 minutes', cook_time: '20 minutes', description: 'Delicious pizza', public: true, author: @messi)
-    @recipe3 = Recipe.create(name: 'Pasta', prep_time: '10 minutes', cook_time: '25 minutes', description: 'Delicious pasta', public: true, author: @messi)
+    @recipe = Recipe.create(name: 'Burger', prep_time: '10 minutes', cook_time: '15 minutes',
+                            description: 'Delicious burger', public: true, author: @messi)
+    @recipe2 = Recipe.create(name: 'Pizza', prep_time: '10 minutes', cook_time: '20 minutes',
+                             description: 'Delicious pizza', public: true, author: @messi)
+    @recipe3 = Recipe.create(name: 'Pasta', prep_time: '10 minutes', cook_time: '25 minutes',
+                             description: 'Delicious pasta', public: true, author: @messi)
   end
 
   describe 'index page' do
