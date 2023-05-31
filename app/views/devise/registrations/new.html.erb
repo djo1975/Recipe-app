@@ -16,6 +16,10 @@
   </div>
 
   <div class="field">
+    <%= f.collection_select :role, User::ROLES, :to_s, -> (role) { role.to_s.humanize }%>
+  </div>
+
+  <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
