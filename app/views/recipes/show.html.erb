@@ -3,13 +3,28 @@
 <main class='main'>
   <div class='header'>
     <h1><%= @recipe.name %></h1>
-    <div class='actions'>
-      <% if @recipe.public? %>
-        <%= link_to 'Public' %>
-      <% else %>
-        <%= link_to 'Private' %>
-      <% end %>
-    </div>
+
+    <%= form_for @recipe, url: recipe_path(@recipe), method: :put do |f| %>
+      <div class='actions toggle-link'>
+        <% if @recipe.public? %>
+          <%= f.hidden_field :public, value: false %>
+          <%= button_tag type: 'submit', class: 'toggle-submit' do %>
+            <span>Public</span>
+            <div class='toggle-box public'>
+              <div class='toggle'></div>
+            </div>
+          <% end %>
+        <% else %>
+          <%= f.hidden_field :public, value: true %>
+          <%= button_tag type: 'submit', class: 'toggle-submit' do %>
+            <span>Private</span>
+            <div class='toggle-box private'>
+              <div class='toggle'></div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 
   <div class='content'>
@@ -19,7 +34,7 @@
   </div>
 
   <div class='actions'>
-    <%= link_to 'Generate shopping list', missing_food_recipe_path(@recipe) %>
+    <%= link_to 'Generate shopping list'%>
     <%= link_to 'Add ingredient' %>
   </div>
 

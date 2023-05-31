@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   root 'recipes#index'
 
   resources :users, only: [:index]
-  resources :recipes, only: %i[index show new create destroy] do
+  resources :recipes, only: %i[index show new create destroy update] do
     collection do
       get :public_recipes
       get :missing_food
