@@ -1,0 +1,25 @@
+<%# <h1>Missing Food Items for <%= @recipe.title %></h1> %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Measurement Unit</th>
+      <th>Unit Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @missing_foods.each do |food| %>
+      <tr>
+        <td><%= food.name %></td>
+        <td><%= food.measurement_unit %></td>
+        <td><%= food.unit_price %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p>Total missing items: <%= @total_items %></p>
+<p>Total missing price: <%= @total_price %></p>
+
+<%= link_to 'Back to Recipes', recipes_path %>

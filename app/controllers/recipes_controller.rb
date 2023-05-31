@@ -15,9 +15,10 @@ class RecipesController < ApplicationController
       return
     end
 
-    @recipe_foods = @recipe.recipe_foods
+    @recipe_foods = RecipeFood.where(recipe: @recipe).includes(food: :author)
+    @missing_foods = find_missing_foods(@recipe)
     @total_food_items = @recipe_foods.count
-    @total_price = @recipe_foods.sum(:price)
+    @total_price = calculate_total_price(@recipe_foods)
   end
 
   def new
@@ -49,6 +50,18 @@ class RecipesController < ApplicationController
   end
 
   def recipe_params
-    params.require(:recipe).permit(:name, :prep_time, :cook_time, :description)
+    params.require(:recipe).permit(:title, :description, :public)
+  end
+
+  def find_missing_foods(recipe)
+    user = recipe.user
+    all_foods = user.foods
+    recipe_foods = recipe.foods
+    all_foods.where.not(id: recipe_foods)
+  end
+
+  def calculate_total_price(recipe_foods)
+    total_price = recipe_foods.sum { |recipe_food| recipe_food.food.price * recipe_food.quantity }
+    total_price.round(2)
   end
 end
