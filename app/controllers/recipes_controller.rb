@@ -13,12 +13,11 @@ class RecipesController < ApplicationController
     unless @recipe.public || @recipe.author == current_user
       redirect_to recipes_path, alert: 'You do not have access to that recipe.'
     end
-    
+
     @recipe_foods = RecipeFood.where(recipe: @recipe).includes(food: :author)
     @missing_foods = find_missing_foods(@recipe)
     @total_food_items = @recipe_foods.count
     @total_price = calculate_total_price(@recipe_foods)
-
   end
 
   def new
@@ -50,8 +49,8 @@ class RecipesController < ApplicationController
   end
 
   def recipe_params
-
- params.require(:recipe).permit(:name, :prep_time, :cook_time, :description, :public)  end
+    params.require(:recipe).permit(:name, :prep_time, :cook_time, :description, :public)
+  end
 
   def find_missing_foods(recipe)
     user = recipe.user
@@ -63,6 +62,5 @@ class RecipesController < ApplicationController
   def calculate_total_price(recipe_foods)
     total_price = recipe_foods.sum { |recipe_food| recipe_food.food.price * recipe_food.quantity }
     total_price.round(2)
-
   end
 end
