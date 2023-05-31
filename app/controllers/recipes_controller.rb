@@ -58,14 +58,13 @@ class RecipesController < ApplicationController
   end
 
   def recipe_params
-    params.require(:recipe).permit(:title, :description, :public)
+    params.require(:recipe).permit(:name, :prep_time, :cook_time, :description, :public)
   end
 
   def find_missing_foods(recipe)
-    user = recipe.user
-    all_foods = user.foods
-    recipe_foods = recipe.foods
-    all_foods.where.not(id: recipe_foods)
+    user = recipe.author
+    recipe_foods = RecipeFood.where(recipe: recipe).includes(food: :author)
+    user_foods = user.foods.includes(:author)
   end
 
   def calculate_total_price(recipe_foods)

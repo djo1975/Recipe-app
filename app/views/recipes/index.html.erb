@@ -8,18 +8,23 @@
   </div>
 
   <ul class='recipes'>
-    <% @recipes.each do |recipe| %>
-      <li class='recipe'>
-        <div class='left'>
-          <h2><%= link_to recipe.name, recipe %></h2>
-          <div class='actions'>
-            <%= link_to 'Delete', recipe, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% if @recipes.empty? %>
+      <li class='no-recipes'>You have no recipes yet!</li>
+    <% else %>
+      <% @recipes.each do |recipe| %>
+        <li class='recipe'>
+          <div class='left'>
+            <h2><%= link_to recipe.name, recipe %></h2>
+            <div class='actions'>
+              <%= link_to 'Delete', recipe, method: :delete, data: { confirm: 'Are you sure?' } %>
+            </div>
           </div>
-        </div>
 
-        <div class='right'>
-          <p class='description'><%= recipe.description %></p>
-        </div>
-      </li>
+          <div class='right'>
+            <p class='description'><%= recipe.description %></p>
+          </div>
+        </li>
+      <% end %>
     <% end %>
+  </ul>
 </main
