@@ -7,6 +7,7 @@ h1 {
 table {
   width: 100%;
   border-collapse: collapse;
+  border: 4px solid;
 }
 
 thead th {
@@ -18,7 +19,7 @@ thead th {
 }
 
 tr:nth-child(even) {
-  background-color: #e1cfcf;
+  background-color: #cfd7e1;
 }
 
 tbody td {

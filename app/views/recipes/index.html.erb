@@ -4,7 +4,9 @@
   <div class='header'>
     <h1>Recipes by <%= current_user.name %></h1>
     <div class='actions'>
-      <%= link_to 'New recipe', new_recipe_path %>
+     <form action="<%= new_food_path %>" method="get">
+  <input type="submit" value="Add New Food" class="custom-button">
+</form>
   </div>
 
   <ul class='recipes'>
@@ -12,11 +14,11 @@
       <li class='no-recipes'>You have no recipes yet!</li>
     <% else %>
       <% @recipes.each do |recipe| %>
-        <li class='recipe'>
+        <li class='recipess'>
           <div class='left'>
             <h2><%= link_to recipe.name, recipe %></h2>
             <div class='actions'>
-              <%= link_to 'Delete', recipe, method: :delete, data: { confirm: 'Are you sure?' } %>
+              <%= link_to 'REMOVE', recipe, method: :delete, data: { confirm: 'Are you sure?' } %>
             </div>
           </div>
 

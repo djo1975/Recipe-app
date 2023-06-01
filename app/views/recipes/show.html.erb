@@ -1,3 +1,104 @@
+<style>
+.main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  margin: 0;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 15rem;
+    padding: 2rem;
+}
+
+.toggle-submit {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.toggle-submit span {
+  margin-right: 5px;
+}
+
+.toggle-box {
+  width: 40px;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 10px;
+  position: relative;
+}
+
+.toggle-box .toggle {
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.3s ease-in-out;
+}
+
+.toggle-box.public .toggle {
+  transform: translateX(20px);
+}
+
+.content {
+  margin-bottom: 20px;
+}
+
+.description {
+  margin-top: 10px;
+}
+
+.actions a {
+  display: inline-block;
+  margin-right: 10px;
+  text-decoration: none;
+  color: #333;
+  padding: 5px 10px;
+  background-color: #eee;
+  border-radius: 5px;
+}
+
+.foods {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.foods th,
+.foods td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+.foods th:last-child,
+.foods td:last-child {
+  text-align: center;
+}
+
+.actions a:hover {
+  background-color: #ddd;
+}
+</style>
 <%= content_for :title, @recipe.name || 'Recipe' %>
 
 <main class='main'>
