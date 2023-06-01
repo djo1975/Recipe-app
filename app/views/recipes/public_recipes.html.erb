@@ -4,8 +4,8 @@
 
 <% @recipes.each do |recipe| %>
   <div>
-    <h2><%= recipe.title %></h2> <%= link_to recipe.title, recipe_path(recipe) %>
-    <p>Created by: <%= recipe.user.name %></p>
+    <h2><%= recipe.name %></h2> <%= link_to recipe.name, recipe_path(recipe) %>
+    <p>Created by: <%= recipe.author.name %></p>
     <p>Total Food Items: <%= recipe.foods.count %></p>
     <p>Total Price: $<%= recipe.foods.sum(:price) %></p>
   </div>
