@@ -5,4 +5,5 @@
 *= require new_food
 *= require navbar
 *= require recipes
+*= require public_recipes
 */
