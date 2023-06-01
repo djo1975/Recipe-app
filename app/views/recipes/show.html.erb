@@ -136,7 +136,7 @@
 
   <div class='actions'>
     <%= link_to 'Generate shopping list'%>
-    <%= link_to 'Add ingredient' %>
+    <%= link_to 'Add ingredient', new_recipe_recipe_food_path(@recipe) %>
   </div>
 
   <% if @recipe_foods.length > 0 %>
