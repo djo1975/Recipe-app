@@ -157,7 +157,7 @@
             <td>$<%= recipe_food.quantity * recipe_food.food.price %></td>
             <td>
               <%= link_to 'Modify', edit_recipe_recipe_food_path(@recipe, recipe_food) %>
-              <%= link_to 'Delete' %>
+              <%= button_to 'Delete', recipe_recipe_food_path(@recipe, recipe_food), method: :delete %>
             </td>
           </tr>
         <% end %>

@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       get :public_recipes
       get :missing_food
     end
-    resources :recipe_foods, only: %i[new create edit update]
+    resources :recipe_foods, only: %i[new create edit update destroy]
   end
 
   resources :foods, only: %i[index show new create destroy]
