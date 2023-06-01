@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :foods
+  resources :foods, only: %i[index show new create destroy]
   resources :recipe_foods
 
   # Add any additional routes you need below this line

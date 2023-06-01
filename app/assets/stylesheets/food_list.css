@@ -17,6 +17,10 @@ thead th {
   border-bottom: 1px solid #ccc;
 }
 
+tr:nth-child(even) {
+  background-color: #e1cfcf;
+}
+
 tbody td {
   padding: 10px;
   border-bottom: 1px solid #ccc;
@@ -37,4 +41,10 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+form input.custom-button {
+  position: absolute;
+  right: 2rem;
+  top: 4.5rem;
 }
