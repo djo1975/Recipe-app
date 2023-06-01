@@ -14,10 +14,7 @@ class RecipesController < ApplicationController
       redirect_to recipes_path, alert: 'You do not have access to that recipe.'
     end
 
-    @recipe_foods = RecipeFood.where(recipe: @recipe).includes(food: :author)
-    @missing_foods = find_missing_foods(@recipe)
-    @total_food_items = @recipe_foods.count
-    @total_price = calculate_total_price(@recipe_foods)
+    @recipe_foods = RecipeFood.where(recipe: @recipe).includes(:food, :recipe)
   end
 
   def new
@@ -51,24 +48,29 @@ class RecipesController < ApplicationController
     end
   end
 
+
+  def missing_food
+    @foods = current_user.foods
+    current_user.recipes.map do |recipe|
+      recipe.recipe_foods.includes(:food).map do |recipe_food|
+        food = @foods.find { |f| f.id == recipe_food.food_id }
+        food.quantity -= recipe_food.quantity if food
+      end
+    end
+
+    @foods = @foods.select { |f| f.quantity.negative? }
+    @foods = @foods.each { |f| f.quantity *= -1 }
+    @total = 0
+    @foods.each { |f| @total += f.price * f.quantity }
+  end
+
   private
 
   def set_recipe
-    @recipe = current_user.recipes.find(params[:id])
+    @recipe = Recipe.find(params[:id])
   end
 
   def recipe_params
     params.require(:recipe).permit(:name, :prep_time, :cook_time, :description, :public)
-  end
-
-  def find_missing_foods(recipe)
-    user = recipe.author
-    RecipeFood.where(recipe:).includes(food: :author)
-    user.foods.includes(:author)
-  end
-
-  def calculate_total_price(recipe_foods)
-    total_price = recipe_foods.sum { |recipe_food| recipe_food.food.price * recipe_food.quantity }
-    total_price.round(2)
   end
 end
