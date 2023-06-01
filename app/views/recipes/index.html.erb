@@ -18,7 +18,7 @@
           <div class='left'>
             <h2><%= link_to recipe.name, recipe %></h2>
             <div class='actions'>
-              <%= link_to 'REMOVE', recipe, method: :delete, data: { confirm: 'Are you sure?' } %>
+              <%= button_to 'REMOVE', recipe_path(recipe), method: :delete %>
             </div>
           </div>
 

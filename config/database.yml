@@ -1,22 +1,18 @@
 default: &default
   adapter: postgresql
   encoding: unicode
+  username: <%= ENV["PSQL_USER"] %>
+  password: <%= ENV["PSQL_PASSWORD"] %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
   database: recipe_app_development
-  username: <%= ENV["RECIPE_APP_DATABASE_USERNAME"] %>
-  password: cicibu
 
 test:
   <<: *default
   database: recipe_app_test
-  username: <%= ENV["RECIPE_APP_DATABASE_USERNAME"] %>
-  password: cicibu
 
 production:
   <<: *default
   database: recipe_app_production
-  username: <%= ENV["RECIPE_APP_DATABASE_USERNAME"] %>
-  password: cicibu
