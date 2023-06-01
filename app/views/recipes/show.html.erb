@@ -139,7 +139,7 @@
     <%= link_to 'Add ingredient', new_recipe_recipe_food_path(@recipe) %>
   </div>
 
-  <% if @recipe_foods.length > 0 %>
+  <% if @recipe.recipe_foods.length > 0 %>
     <table class='foods'>
       <thead>
         <tr>
@@ -150,13 +150,13 @@
         </tr>
       </thead>
       <tbody>
-        <% @recipe_foods.each do |recipe_food| %>
+        <% @recipe.recipe_foods.each do |recipe_food| %>
           <tr>
             <td><%= recipe_food.food.name %></td>
-            <td><%= recipe_food.food.quantity %> <%= recipe_food.food.measurement_unit %></td>
-            <td>$<%= recipe_food.food.quantity * recipe_food.food.price %></td>
+            <td><%= recipe_food.quantity %> <%= recipe_food.food.measurement_unit %></td>
+            <td>$<%= recipe_food.quantity * recipe_food.food.price %></td>
             <td>
-              <%= link_to 'Edit' %>
+              <%= link_to 'Modify', edit_recipe_recipe_food_path(@recipe, recipe_food) %>
               <%= link_to 'Delete' %>
             </td>
           </tr>

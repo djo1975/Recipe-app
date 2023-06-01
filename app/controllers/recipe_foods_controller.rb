@@ -15,6 +15,22 @@ class RecipeFoodsController < ApplicationController
     end
   end
 
+  def edit
+    @recipe = Recipe.find(params[:recipe_id])
+    @recipe_food = @recipe.recipe_foods.find(params[:id])
+  end
+
+  def update
+    @recipe = Recipe.find(params[:recipe_id])
+    @recipe_food = @recipe.recipe_foods.find(params[:id])
+
+    if @recipe_food.update(recipe_food_params)
+      redirect_to @recipe, notice: 'Ingredient updated successfully.'
+    else
+      render :edit, alert: 'Failed to update ingredient.'
+    end
+  end
+
   private
 
   def recipe_food_params
