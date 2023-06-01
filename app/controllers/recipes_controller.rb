@@ -37,7 +37,7 @@ class RecipesController < ApplicationController
   def update
     if @recipe.update(recipe_params)
       notice = @recipe.public ? 'Recipe is now public.' : 'Recipe is now private.'
-      redirect_to @recipe, notice: notice
+      redirect_to @recipe, notice:
     else
       redirect_to @recipe, alert: 'Failed to update recipe.'
     end
