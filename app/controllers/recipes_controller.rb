@@ -51,20 +51,26 @@ class RecipesController < ApplicationController
 
   def missing_food
     @foods = current_user.foods
-    current_user.recipes.map do |recipe|
-      recipe.recipe_foods.includes(:food).map do |recipe_food|
-        food = @foods.find { |f| f.id == recipe_food.food_id }
-        food.quantity -= recipe_food.quantity if food
-      end
+    @foods.each do |food|
+      food.quantity -= total_quantity_for_food(food)
     end
 
     @foods = @foods.select { |f| f.quantity.negative? }
-    @foods = @foods.each { |f| f.quantity *= -1 }
-    @total = 0
-    @foods.each { |f| @total += f.price * f.quantity }
+    @foods.each { |f| f.quantity *= -1 }
+    @total = calculate_total_price(@foods)
   end
 
   private
+
+  def total_quantity_for_food(food)
+    current_user.recipes.sum do |recipe|
+      recipe.recipe_foods.includes(:food).where(food_id: food.id).sum(:quantity)
+    end
+  end
+
+  def calculate_total_price(foods)
+    foods.sum { |f| f.price * f.quantity }
+  end
 
   def set_recipe
     @recipe = Recipe.find(params[:id])
