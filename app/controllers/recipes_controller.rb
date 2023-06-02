@@ -24,10 +24,10 @@ class RecipesController < ApplicationController
       redirect_to recipes_path, alert: 'You do not have access to that recipe.'
       return
     end
-
-    @recipe_foods = RecipeFood.where(recipe: @recipe).includes(food: :author)
+    @recipe_foods = RecipeFood.where(recipe_id: @recipe.id).includes(food: :author)
+    recipe_food_ids = @recipe_foods.pluck(:food_id)
     all_foods = Food.includes(:author)
-    @missing_foods = find_missing_foods(current_user, @recipe_foods, all_foods)
+    @missing_foods = find_missing_foods(current_user, recipe_food_ids, all_foods)
     @total_items = calculate_total_food_items(@missing_foods)
     @total_price = calculate_total_price(@missing_foods)
   end
@@ -66,7 +66,15 @@ class RecipesController < ApplicationController
   private
 
   def set_recipe
-    @recipe = current_user.recipes.find(params[:id])
+    @recipe = if current_user
+                Recipe.where(id: params[:id]).where('author_id = ? OR public = ?', current_user.id, true).first
+              else
+                Recipe.where(id: params[:id], public: true).first
+              end
+    return if @recipe
+
+    redirect_to recipes_path, alert: 'Recipe not found.'
+    nil
   end
 
   def recipe_params
@@ -75,8 +83,10 @@ class RecipesController < ApplicationController
 
   def find_missing_foods(_user, recipe_food_ids, all_foods)
     missing_foods = []
+    recipe_food_ids.uniq.each do |recipe_food_id|
+      food = all_foods.find_by(id: recipe_food_id)
+      next unless food
 
-    all_foods.each do |food|
       required_quantity = RecipeFood.where(recipe_id: recipe_food_ids, food_id: food.id).sum(:quantity)
       available_quantity = food.quantity
 
