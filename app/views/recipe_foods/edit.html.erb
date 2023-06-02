@@ -1,0 +1,17 @@
+<%= content_for :title, "Edit Recipe Ingredient" %>
+
+<main>
+  <%= form_with model: [@recipe, @recipe_food], url: recipe_recipe_food_path(@recipe, @recipe_food), method: :patch do |f| %>
+    <div class="field">
+      <%= f.label :food_id, 'Food' %>
+      <%= f.collection_select :food_id, current_user.foods, :id, :name, {prompt: 'Select food item'} %>
+    </div>
+
+    <div class="field">
+      <%= f.label :quantity %>
+      <%= f.number_field :quantity %>
+    </div>
+
+    <%= f.submit 'Update Ingredient', class: 'btn btn-primary' %>
+  <% end %>
+</main>

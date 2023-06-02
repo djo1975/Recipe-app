@@ -1,0 +1,35 @@
+<%= content_for :title, "Recipes" %>
+
+<main class='main recipe'>
+  <div class='container'>
+    <div class='header'>
+      <h1>Recipes by <%= current_user.name %></h1>
+      <div class='actions'>
+        <form action="<%= new_recipe_path %>" method="get">
+          <input type="submit" value="Add New Recipe" class="btn btn-cta">
+        </form>
+      </div>
+    </div>
+
+    <ul class='recipe-list'>
+      <% if @recipes.empty? %>
+        <li class='no-recipes'>You have no recipes yet!</li>
+      <% else %>
+        <% @recipes.each do |recipe| %>
+          <li class='recipe-card'>
+            <div class='left'>
+              <h2><%= link_to recipe.name, recipe %></h2>
+              <div class='actions'>
+                <%= button_to 'REMOVE', recipe_path(recipe), method: :delete, class: 'btn btn-delete' %>
+              </div>
+            </div>
+
+            <div class='right'>
+              <p class='description'><%= recipe.description %></p>
+            </div>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+</main

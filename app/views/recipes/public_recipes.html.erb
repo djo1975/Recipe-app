@@ -1,0 +1,21 @@
+<%= content_for :title, "Public Recipes" %>
+
+<main class='main'>
+  <div class='container'>
+    <h1>List of Public Recipes</h1>
+
+    <% @recipes.each do |recipe| %>
+      <div class="recipe-card">
+        <div class='left'>
+          <h2><%= link_to recipe.name, recipe_path(recipe) %></h2> 
+          <p>By: <%= recipe.author.name %></p>
+        </div> 
+
+        <div class="right">
+          <p>Total Food Items: <%= recipe.foods.count %></p>
+          <p>Total Price: $<%= recipe.foods.sum(:price) %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</main>

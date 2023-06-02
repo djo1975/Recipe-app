@@ -1,0 +1,44 @@
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0;
+  vertical-align: middle;
+  padding: 0.25rem 0.75rem;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  border: 0;
+  background-color: var(--clr-light-grey);
+}
+
+.btn-delete {
+  color: inherit;
+  transition: background-color 150ms ease-in-out, color 150ms ease-in-out;
+}
+
+.btn-delete:hover {
+  color: var(--clr-very-light);
+  background-color: rgba(215, 51, 51, 0.546);
+}
+
+.btn-edit {
+  color: inherit;
+  transition: background-color 150ms ease-in-out, color 150ms ease-in-out;
+}
+
+.btn-edit:hover {
+  color: var(--clr-very-light);
+  background-color: var(--clr-blue);
+}
+
+.btn-cta {
+  background-color: var(--clr-blue);
+  color: var(--clr-very-light);
+  padding: 0.65rem 1.25rem;
+  transition: background-color 150ms ease-in-out, color 150ms ease-in-out;
+}
+
+.btn-cta:hover {
+  background-color: #286090;
+}

@@ -1,0 +1,87 @@
+<style>
+
+.content {
+  margin-bottom: 20px;
+}
+
+.description {
+  margin-top: 10px;
+}
+
+</style>
+<%= content_for :title, @recipe.name || 'Recipe' %>
+
+<main class='main recipe-details'>
+  <div class='container'>
+    <div class='header'>
+      <h1><%= @recipe.name %></h1>
+
+      <%= form_for @recipe, url: recipe_path(@recipe), method: :put do |f| %>
+        <div class='actions toggle-link'>
+          <% if current_user == @recipe.author %>
+            <% if @recipe.public? %>
+              <%= f.hidden_field :public, value: false %>
+              <%= button_tag type: 'submit', class: 'toggle-submit' do %>
+                <span>Public</span>
+                <div class='toggle-box public'>
+                  <div class='toggle'></div>
+                </div>
+              <% end %>
+            <% else %>
+              <%= f.hidden_field :public, value: true %>
+              <%= button_tag type: 'submit', class: 'toggle-submit' do %>
+                <span>Private</span>
+                <div class='toggle-box private'>
+                  <div class='toggle'></div>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class='content'>
+      <p class='prep-time'>Preparation time: <%= @recipe.prep_time %></p>
+      <p class='cook-time'>Cooking time: <%= @recipe.cook_time %></p>
+      <p class='description'><%= @recipe.description %></p>
+    </div>
+
+      <% if current_user == @recipe.author %>
+        <div class='actions'>
+          <%= link_to 'Generate shopping list', missing_food_recipes_path, class: 'btn btn-cta' %>
+          <%= link_to 'Add ingredient', new_recipe_recipe_food_path(@recipe), class: 'btn btn-cta' %>
+        </div>
+      <% end %>
+
+    <% if @recipe.recipe_foods.length > 0 %>
+      <table class='foods'>
+        <thead>
+          <tr>
+            <th>Food</th>
+            <th>Quantity</th>
+            <th>Value</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @recipe_foods.each do |recipe_food| %>
+            <tr>
+              <td><%= recipe_food.food.name %></td>
+              <td><%= recipe_food.quantity %> <%= recipe_food.food.measurement_unit %></td>
+              <td>$<%= recipe_food.quantity * recipe_food.food.price %></td>
+              <td>
+                <% if current_user == @recipe.author %>
+                  <div class='actions'>
+                    <%= link_to 'Modify', edit_recipe_recipe_food_path(@recipe, recipe_food), class: 'btn btn-edit' %>
+                    <%= button_to 'Delete', recipe_recipe_food_path(@recipe, recipe_food), method: :delete, class: 'btn btn-delete' %>
+                  </div>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</main>
