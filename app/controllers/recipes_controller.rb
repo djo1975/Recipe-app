@@ -9,15 +9,27 @@ class RecipesController < ApplicationController
     @recipes = Recipe.where(public: true).includes(:author, :foods).order(created_at: :desc)
   end
 
+  def missing_food
+    recipe_food_ids = RecipeFood.where(recipe_id: current_user.recipes.pluck(:id)).pluck(:food_id)
+    all_foods = Food.includes(:author)
+    @missing_foods = find_missing_foods(current_user, recipe_food_ids, all_foods)
+    @total_items = calculate_total_food_items(@missing_foods)
+    @total_price = calculate_total_price(@missing_foods)
+  end
+
   def show
+    puts 'Inside show method' # Dodajte ovaj red
+
     unless @recipe.public || @recipe.author == current_user
       redirect_to recipes_path, alert: 'You do not have access to that recipe.'
+      return
     end
 
     @recipe_foods = RecipeFood.where(recipe: @recipe).includes(food: :author)
-    @missing_foods = find_missing_foods(@recipe)
-    @total_food_items = @recipe_foods.count
-    @total_price = calculate_total_price(@recipe_foods)
+    all_foods = Food.includes(:author)
+    @missing_foods = find_missing_foods(current_user, @recipe_foods, all_foods)
+    @total_items = calculate_total_food_items(@missing_foods)
+    @total_price = calculate_total_price(@missing_foods)
   end
 
   def new
@@ -61,14 +73,29 @@ class RecipesController < ApplicationController
     params.require(:recipe).permit(:name, :prep_time, :cook_time, :description, :public)
   end
 
-  def find_missing_foods(recipe)
-    user = recipe.author
-    RecipeFood.where(recipe:).includes(food: :author)
-    user.foods.includes(:author)
+  def find_missing_foods(_user, recipe_food_ids, all_foods)
+    missing_foods = []
+
+    all_foods.each do |food|
+      required_quantity = RecipeFood.where(recipe_id: recipe_food_ids, food_id: food.id).sum(:quantity)
+      available_quantity = food.quantity
+
+      next unless available_quantity < required_quantity
+
+      missing_foods << {
+        food:,
+        quantity_needed: required_quantity - available_quantity
+      }
+    end
+
+    missing_foods
   end
 
-  def calculate_total_price(recipe_foods)
-    total_price = recipe_foods.sum { |recipe_food| recipe_food.food.price * recipe_food.quantity }
-    total_price.round(2)
+  def calculate_total_food_items(foods)
+    foods.size
+  end
+
+  def calculate_total_price(foods)
+    foods.sum { |food| food[:food].price * food[:quantity_needed] }
   end
 end

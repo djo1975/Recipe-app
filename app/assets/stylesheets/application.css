@@ -7,3 +7,8 @@
 *= require recipes
 *= require public_recipes
 */
+.missing {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+}
