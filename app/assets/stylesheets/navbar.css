@@ -1,5 +1,8 @@
 .navigation {
   background-color: #f2f2f2;
+}
+
+.navigation .container {
   padding: 1rem;
   display: flex;
   justify-content: space-between;

@@ -1,25 +1,27 @@
 <%= content_for :title, "Shopping List" %>
 <h1 style="text-align: center;">Shopping List</h1>
 
-<div class="missing">
-<p>Amount of food items to buy: <%= @total_items %></p>
-<p>Total value of food needed $: <%= @total_price %></p>
-</div>
+<h1>Shopping List</h1>
 <table>
   <thead>
     <tr>
       <th>Name</th>
-      <th>Measurement Unit</th>
+      <th>Quantity</th>
       <th>Unit Price</th>
     </tr>
   </thead>
   <tbody>
-    <% @missing_foods.each do |food| %>
+    <% @foods.each do |food| %>
       <tr>
-        <td><%= food[:food].name %></td>
-        <td><%= "#{food[:quantity_needed]} #{food[:food].measurement_unit}" %></td>
-<td>$<%= food[:quantity_needed] * food[:food].price %></td>
+        <td><%= food.name %></td>
+        <td><%= food.quantity %> <%= food.measurement_unit %></td>
+        <td><%= food.price %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<p>Amount of food items to buy: <%= @foods.length %></p>
+<p>Total cost: $<%= @total %></p>
+
+<%= link_to 'Back to Recipes', recipes_path %>

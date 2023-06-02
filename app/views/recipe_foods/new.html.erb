@@ -4,7 +4,7 @@
   <%= form_with model: [@recipe, @recipe_food], url: recipe_recipe_foods_path(@recipe), method: :post do |f| %>
     <div class="field">
       <%= f.label :food_id, 'Food' %>
-      <%= f.collection_select :food_id, Food.all, :id, :name %>
+      <%= f.collection_select :food_id, current_user.foods, :id, :name, {prompt: 'Select food item'} %>
     </div>
 
     <div class="field">

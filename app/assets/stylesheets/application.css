@@ -1,11 +1,11 @@
 /*
 *= require boilerplate
+*= require buttons
 *= require toggle_button
 *= require food_list
 *= require new_food
 *= require navbar
 *= require recipes
-*= require public_recipes
 */
 .missing {
   display: flex;

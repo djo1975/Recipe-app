@@ -1,8 +1,36 @@
-.recipess {
-  border: 4px solid blue;
-  border-radius: 1rem;
+.recipe-card {
+  border: 2px solid var(--clr-blue);
+  border-radius: 0.25rem;
   padding: 1rem;
   margin-bottom: 1rem;
-  list-style-type: none;
-  margin-left: -2rem;
+  background-color: var(--clr-white);
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.recipe-card p,
+.recipe-card h2 {
+  margin-top: 0;
+}
+
+.recipe-details .container {
+  max-width: 600px;
+}
+
+.recipe-details .actions {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  padding: 2rem;
+}
+
+.recipe-details .foods .actions {
+  display: flex;
+  justify-content: none;
+  align-items: center;
+  margin-bottom: 0;
+  padding: 0;
 }
