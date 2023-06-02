@@ -1,0 +1,29 @@
+.container > form {
+  border: solid 1px var(--clr-light-grey);
+  background-color: var(--clr-white);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 0.25rem;
+}
+
+.container > form,
+.form-wrap {
+  margin: 3rem auto 0;
+  max-width: 600px;
+  padding: 1rem;
+  background-color: var(--clr-white);
+}
+
+.container > form .field {
+  margin-bottom: 1rem;
+}
+
+.container > form input[type='text'],
+.container > form input[type='email'],
+.container > form input[type='password'],
+.container > form select,
+.container > form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  border: solid 1px var(--clr-light-grey);
+}

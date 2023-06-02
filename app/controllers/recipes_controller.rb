@@ -49,7 +49,6 @@ class RecipesController < ApplicationController
     end
   end
 
-
   def missing_food
     @foods = current_user.foods
     current_user.recipes.map do |recipe|
