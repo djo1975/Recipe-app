@@ -10,7 +10,49 @@ html {
 }
 
 body {
+  --clr-dark: #091520;
+  --clr-dark-grey: #3d4347;
+  --clr-dark-blue: #286090;
+  --clr-blue: #337ab7;
+  --clr-light-grey: #ededed;
+  --clr-light: #f7f7f7;
+  --clr-very-light: #fdfdfd;
+  --clr-white: #fff;
+
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
+  color: var(--clr-dark-grey);
+  background-color: var(--clr-very-light);
+}
+
+.notice {
+  color: limegreen;
+}
+
+.alert {
+  color: rgb(173, 67, 67);
+}
+
+h1 {
+  color: var(--clr-dark);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.main .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
