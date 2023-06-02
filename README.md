@@ -2,7 +2,7 @@
 
 <a name="readme-top"></a>
 <div align="center">
-  <img src="./personal/Untitled.png" width="145" height="auto" />
+  <img src="./personal/Untitled.png" width="140" height="auto" />
 </div>
 
 # 📗 Table of Contents
