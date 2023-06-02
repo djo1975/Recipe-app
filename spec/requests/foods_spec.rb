@@ -4,11 +4,11 @@ RSpec.describe 'Foods', type: :request do
   describe 'GET' do
     before :all do
       @user = User.create(name: 'Test User')
-      @user
     end
 
     describe '/index' do
       before :each do
+        sign_in @user
         get foods_path
       end
 
@@ -27,6 +27,7 @@ RSpec.describe 'Foods', type: :request do
 
     describe '/new' do
       before :each do
+        sign_in @user
         get new_food_path
       end
 

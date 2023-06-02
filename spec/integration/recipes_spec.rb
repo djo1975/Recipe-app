@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Recipes', type: :system, js: true do
   before :example do
-    @messi = User.create(name: 'Messi')
+    @messi = User.create(name: 'Messi', email: 'messi@goat.com', password: 'password')
 
     @recipe = Recipe.create(name: 'Burger', prep_time: '10 minutes', cook_time: '15 minutes',
                             description: 'Delicious burger', public: true, author: @messi)
@@ -14,6 +14,7 @@ RSpec.describe 'Recipes', type: :system, js: true do
 
   describe 'index page' do
     before :example do
+      sign_in @messi
       visit recipes_path
     end
 
@@ -31,6 +32,7 @@ RSpec.describe 'Recipes', type: :system, js: true do
 
   describe 'show page' do
     before :example do
+      sign_in @messi
       visit recipe_path(@recipe2)
     end
 

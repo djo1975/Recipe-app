@@ -3,12 +3,12 @@ require 'rails_helper'
 RSpec.describe 'Recipes', type: :request do
   describe 'GET' do
     before :all do
-      @user = User.create(name: 'Test User')
-      @user
+      @user = User.create(name: 'Test User', email: 'john.doe@mail.com', password: 'password')
     end
 
     describe '/index' do
       before :each do
+        sign_in @user
         get recipes_path
       end
 
@@ -27,6 +27,7 @@ RSpec.describe 'Recipes', type: :request do
 
     describe '/public_recipes' do
       before :each do
+        sign_in @user
         get public_recipes_recipes_path
       end
 
@@ -45,6 +46,7 @@ RSpec.describe 'Recipes', type: :request do
 
     describe '/show' do
       before :each do
+        sign_in @user
         @recipe = Recipe.create(name: 'Test Recipe', prep_time: '10 minutes', cook_time: '20 minutes',
                                 description: 'Test description', public: true, author: @user)
         get recipe_path(@recipe)
